@@ -2,17 +2,24 @@
 #include "fsm.h"
 
 
-static FsmFunc_t *funcs[NUM_FSM_STATES] = {NULL};
-
-
-void fsm_assignFunc(FsmState_t state, FsmFunc_t *func)
+Fsm_t *fsm_newFsm(size_t numStates)
 {
-	funcs[state] = func;
+	Fsm_t *fsm = malloc(sizeof(size_t) + numStates*sizeof(FsmNode_t));
+	fsm->numStates = numStates;
+	return fsm;
 }
 
 
-FsmState_t fsm_runState(FsmState_t state, void *args)
+
+void fsm_assignFunc(Fsm_t *fsm, FsmState_t state, FsmFunc_t *func)
+{
+	fsm->states[state].func = func;
+}
+
+
+
+FsmState_t fsm_runState(Fsm_t *fsm, FsmState_t state, void *args)
 {
 	//TODO: put loop here instead?
-	return (*(funcs[state]))(args);
+	return (*(fsm->states[state].func))(args);
 }

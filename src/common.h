@@ -4,6 +4,7 @@
 
 #include <stdint.h> //Int types
 #include <limits.h> //Int constants
+#include <stdbool.h> //Duh
 #include <stdlib.h> //NULL etc
 #include <string.h> //memcpy etc
 
