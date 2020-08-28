@@ -12,5 +12,8 @@
 #define IDIV(n, d) ((n) + (d)/2 + 1) / (d) /*Minimises overflow, handles signed values*/
 #define	UDIV(n, d) ((n)<<1 + (d)) / ((d)<<1) /*Minimises error, only suitable for positives*/
 
+typedef unsigned int uint; //Native databus size
+
+
 
 #endif //COMMON_H

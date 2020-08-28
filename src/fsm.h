@@ -2,19 +2,32 @@
 #define FSM_H
 
 
-typedef size_t FsmState_t;
+
+
+typedef size_t FsmStateId_t;
 typedef FsmState_t FsmFunc_t(void *);
-typedef struct Fsm_s Fsm_t;
+
+typedef struct {
+	bool isLockstep;
+	size_t numInProcesses;
+	size_t numOutProcesses;
+	FsmState_t *outStates[];
+} FsmTrans_t;
+
 
 typedef struct {
 	Fsm_t *subFsm;
 	FsmFunc_t *func;
-} FsmNode_t;
+	
+	FsmTrans_t *transitions[];
+} FsmState_t;
 
-struct Fsm_s{
+typedef struct{
+	FsmState_t start;
+	FsmState_t end;
 	size_t numStates;
-	FsmNode_t states[];
-};
+	FsmState_t *states[];
+} Fsm_t;
 
 
 
