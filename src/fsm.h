@@ -2,10 +2,19 @@
 #define FSM_H
 
 
+#define FSM_MAX_NUM_PROCESSES 256
 
 
-typedef size_t FsmStateId_t;
+
 typedef FsmState_t FsmFunc_t(void *);
+
+
+typedef struct {
+	bool isActive;
+	uint32_t priority; //Ignore for now. 
+	FsmState_t *state;
+} FsmProc_t;
+
 
 typedef struct {
 	bool isLockstep;
@@ -22,13 +31,17 @@ typedef struct {
 	FsmTrans_t *transitions[];
 } FsmState_t;
 
+
 typedef struct{
-	FsmState_t start;
+	Fsm_t *parent;
 	FsmState_t end;
 	size_t numStates;
 	FsmState_t *states[];
 } Fsm_t;
 
+
+
+void fsm_run(Fsm_t *fsm, FsmState_t *startState);
 
 
 
