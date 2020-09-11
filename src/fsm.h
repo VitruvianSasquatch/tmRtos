@@ -10,13 +10,6 @@ typedef FsmState_t FsmFunc_t(void *);
 
 
 typedef struct {
-	bool isActive;
-	uint32_t priority; //Ignore for now. 
-	FsmState_t *state;
-} FsmProc_t;
-
-
-typedef struct {
 	bool isLockstep;
 	size_t numInProcesses;
 	size_t numOutProcesses;
