@@ -1,5 +1,4 @@
-#include <Arduino.h>
-
+#include <stdio.h>
 #include "common.h"
 
 #include "fsm.h"
@@ -35,10 +34,6 @@ mainState armedState(void *args)
 
 int main(void)
 {
-	
-	// initialize LED digital pin as an output.
-	pinMode(LED_BUILTIN, OUTPUT);
-
 
 	Fsm_t *mainFsm = fsm_newFsm(NUM_MAIN_STATES);
 	fsm_assignFunc(mainFsm, TESTING, &testingState);
@@ -47,9 +42,6 @@ int main(void)
 
 
 	while (1) {
-		digitalWrite(LED_BUILTIN, HIGH);
-		delay(200);
-		digitalWrite(LED_BUILTIN, LOW);
-		delay(200);
+		
 	}
 }
