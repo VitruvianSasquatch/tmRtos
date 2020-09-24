@@ -12,7 +12,7 @@ typedef struct {
 	bool isLockstep;
 	size_t numInProcesses;
 	size_t numOutProcesses;
-	FsmState_t *outStates[];
+	FsmState_t **outStates; //Requires one process to each outState. 
 } FsmTrans_t;
 
 
@@ -20,7 +20,8 @@ struct FsmState_s{
 	Fsm_t *subFsm;
 	FsmFunc_t *func;
 	
-	FsmTrans_t *transitions[];
+	size_t numTransitions;
+	FsmTrans_t **transitions;
 };
 
 
@@ -28,9 +29,9 @@ struct FsmState_s{
 
 struct Fsm_s {
 	Fsm_t *parent;
-	FsmState_t end;
+	FsmState_t *end;
 	size_t numStates;
-	FsmState_t *states[];
+	FsmState_t *states[]; //Top-level structure can have a flexible member. 
 };
 
 
