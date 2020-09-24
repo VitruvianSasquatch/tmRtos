@@ -4,16 +4,10 @@
 #include "fsm.h"
 
 
-typedef enum {
-	TESTING = 0,
-	ARMED, 
-	LAUNCHED, 
-
-	NUM_MAIN_STATES
-} mainState;
+FsmState_t TESTING, ARMED, LAUNCHED;
 
 
-mainState testingState(void *args)
+FsmState_t testingState(void *args)
 {
 	while (1) {
 		if (digitalRead(PIN_A0)) {
@@ -22,7 +16,7 @@ mainState testingState(void *args)
 	}
 }
 
-mainState armedState(void *args)
+FsmState_t armedState(void *args)
 {
 	while (1) {
 		if (digitalRead(PIN_A0)) {
