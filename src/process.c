@@ -7,16 +7,41 @@
 
 static Process_t *first = NULL;
 static Process_t *last = NULL;
-static size_t length = 0;
+static size_t numProcesses = 0;
+static Process_t *current = NULL;
+
+
+
+bool process_isLast(Process_t *process)
+{
+	return process == last;
+}
+
+
+
+Process_t *process_getNext(void)
+{
+	Process_t *process = NULL;
+	if (current = NULL) { //Handle empty list and error cases. 
+		current = first;
+		return first;
+	} else {
+		process = current;
+		current = current->next;
+	}
+	return process;
+}
 
 
 
 Process_t *process_init(FsmState_t *state)
 {
 	Process_t *process = malloc(sizeof(Process_t));
-	process->isActive = true;
-	process->state = state;
-	process->next = NULL;
+	if (process) {
+		process->isActive = true;
+		process->state = state;
+		process->next = NULL;
+	}
 	return process;
 }
 
@@ -34,6 +59,16 @@ void process_addEnd(Process_t *process)
 }
 
 
+Process_t *process_makeNew(FsmState_t *state)
+{
+	Process_t *process = process_init(state);
+	if (process) {
+		process_addEnd(process);
+	}
+	return process;
+}
+
+
 void process_addAfter(Process_t *process, Process_t *location)
 {
 	if (location == last) {
@@ -42,6 +77,17 @@ void process_addAfter(Process_t *process, Process_t *location)
 	process->next = location->next;
 	location->next = process;
 	length++;
+}
+
+
+Process_t *process_makeFork(Process_t *parent, FsmState_t *state)
+{
+	Process_t *process = process_init(state);
+	if (process) {
+		process_addAfter(process, parent);
+	}
+	return process;
+
 }
 
 
