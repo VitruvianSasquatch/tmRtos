@@ -1,0 +1,11 @@
+\begin{lstlisting}
+typedef struct process_s Process_t;
+typedef struct process_s {
+	bool isActive;
+	FsmState_t *state;
+
+	Process_t *prev;
+	Process_t *next;
+};
+
+		\end{lstlisting}
